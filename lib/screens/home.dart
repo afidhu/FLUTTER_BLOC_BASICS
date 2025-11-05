@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc_basics/screens/welcome.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -49,13 +50,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.to(() => VisibleScreen());
               },
               child: const Text('Visible'),
-            ),MaterialButton(
+            ),
+            MaterialButton(
               color: Colors.green,
               textColor: Colors.white,
               onPressed: () {
                 Get.to(() => ApiCall());
               },
               child: const Text('Api Handle'),
+            ),
+            MaterialButton(
+              color: Colors.purple,
+              textColor: Colors.white,
+              onPressed: () {
+                Get.to(() => WelcomeScreen());
+              },
+              child: const Text('Todo App'),
             ),
           ],
         ),

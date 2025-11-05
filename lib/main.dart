@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_basics/screens/home.dart';
 import 'package:flutter_bloc_basics/tutorials/counts.dart';
+import 'package:flutter_bloc_basics/tutorials/todo_app/blocTodo/todo_logic/todoLogics.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'bloc_logic/api_product_logic.dart';
@@ -15,6 +16,7 @@ void main() {
           BlocProvider(create: (_) => CountBloc()),
           BlocProvider(create: (_) => VisibleBloc()),
           BlocProvider(create: (_) => ProductBloc()),
+          BlocProvider(create: (_) => TodoBloc()),
         ],
           child: GetMaterialApp(
             home: HomeScreen(),

@@ -92,6 +92,16 @@ class _CountsPgeState extends State<CountsPge> {
              ),
 
 
+            ///HERE ADD BLOCSELECTOR//
+            BlocSelector<CountBloc,CounterState, bool>(
+                selector: (state)=>(state.count %2 == 0),
+                builder: (context,isEven){
+                  return isEven ? Text('Even', style: TextStyle(fontSize: 30), ) : Text('Odd', style: TextStyle(fontSize: 30), );
+                },
+
+            ),
+
+
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green
