@@ -48,3 +48,8 @@ path.join(process.cwd(), "generated/prisma/libquery_engine-debian-openssl-3.0.x.
  * 
  */
 export type Product = Prisma.ProductModel
+/**
+ * Model Cart
+ * 
+ */
+export type Cart = Prisma.CartModel

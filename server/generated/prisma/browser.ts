@@ -21,3 +21,8 @@ export * from './enums.ts';
  * 
  */
 export type Product = Prisma.ProductModel
+/**
+ * Model Cart
+ * 
+ */
+export type Cart = Prisma.CartModel

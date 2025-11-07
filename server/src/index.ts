@@ -2,6 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 
 import postRouter from './router/postRouter.ts'
+import cartRouter from './router/cartRouter.ts'
 import { PrismaClient } from '../generated/prisma/client.ts';
 
 dotenv.config(); // Load environment variables from .env
@@ -14,6 +15,8 @@ export const prisma = new PrismaClient()
 app.use(express.json())
 
 app.use('/product',postRouter)
+app.use('/carts',cartRouter)
+
 
 
 app.listen(port, () => {

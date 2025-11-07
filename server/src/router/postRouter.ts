@@ -8,4 +8,5 @@ router.post('/',AddPost)
 router.get('/',fetchProduct)
 
 
+
 export default router

@@ -20,7 +20,16 @@ model Product {
   title     String
   price Float?
   description   String?
+  cart Cart[]
   published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Cart{
+  cart_id Int @id @default(autoincrement())
+  productId Int
+  product Product @relation(fields: [productId],references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

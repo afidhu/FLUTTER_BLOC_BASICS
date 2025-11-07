@@ -36,7 +36,6 @@ export const fetchProduct = async(req:Request,resp:Response)=>{
                  createdAt:'desc'
             }
         })
-console.log('data :,',add)
         return resp.status(200).json(add)
         
     } catch (error) {
