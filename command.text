@@ -1,7 +1,7 @@
 echo "# FLUTTER_BLOC_BASICS" >> README.md
 git init
 git add .
-git commit -m "first commit add tutorial2 add CUBIT Fevorate "
+git commit -m "first commit add tutorial2 add CUBIT Fevorate  add chat"
 git branch -M main
 git remote add origin https://github.com/afidhu/FLUTTER_BLOC_BASICS.git
 git push -u origin main
