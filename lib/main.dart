@@ -8,6 +8,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'bloc_logic/api_product_logic.dart';
 import 'bloc_logic/count_bloc.dart';
 import 'bloc_logic/visibility_logic.dart';
+import 'cubit_tutorial/bloc/my_observer.dart';
+import 'cubit_tutorial/cubits/cubit_logic.dart';
 
 void main() {
   runApp(
@@ -17,12 +19,16 @@ void main() {
           BlocProvider(create: (_) => VisibleBloc()),
           BlocProvider(create: (_) => ProductBloc()),
           BlocProvider(create: (_) => TodoBloc()),
+          BlocProvider(create: (_) => CubitProfileLog()),
+          BlocProvider(create: (_) => ImagePickerCubit()),
         ],
           child: GetMaterialApp(
             home: HomeScreen(),
           ),
       )
   );
+  /////this is for cubit and bloc observer For debugging only and other work
+  Bloc.observer =MyObserver();
 }
 
 // class MyApp extends StatelessWidget {

@@ -8,20 +8,26 @@ import 'data/api_service.dart';
 import 'data/product_repository.dart';
 
 void main() {
-  final apiService = ApiServices();
-  final productRepository = ProductRepository(apiService);
-  // MultiRepositoryProvider(providers: providers, child: child)
+  // final apiService = ApiServices();
+  // final productRepository = ProductRepository(apiService);
 
-  runApp(MultiBlocProvider(
+  runApp(
+    MultiRepositoryProvider(
       providers: [
-        BlocProvider(create: (_)=>ProductCartBloc()),
-        BlocProvider(create: (_)=>CartBloc()),
+        RepositoryProvider(create: (_) => ProductRepository(ApiServices())),
       ],
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        home:ProductsScreen() ,
-      )
-  ) );
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => ProductCartBloc()),
+          BlocProvider(create: (_) => CartBloc()),
+        ],
+        child: GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: ProductsScreen(),
+        ),
+      ),
+    ),
+  );
 }
 
 //

@@ -3,6 +3,7 @@ import 'package:flutter_bloc_basics/screens/welcome.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../cubit_tutorial/screens/cubit_home.dart';
 import '../tutorials/api_call.dart';
 import '../tutorials/counts.dart';
 import '../tutorials/visible.dart';
@@ -59,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               child: const Text('Api Handle'),
             ),
+
             MaterialButton(
               color: Colors.purple,
               textColor: Colors.white,
@@ -66,6 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 Get.to(() => WelcomeScreen());
               },
               child: const Text('Todo App'),
+            ),
+            MaterialButton(
+              color: Colors.teal,
+              textColor: Colors.white,
+              onPressed: () {
+                Get.to(() => CubitHome());
+              },
+              child: const Text('Cubit Tutorial'),
             ),
           ],
         ),
