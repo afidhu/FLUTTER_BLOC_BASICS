@@ -2,6 +2,7 @@ import '../data/models.dart';
 
 abstract class ProductCartState{}
 abstract class CartState{}
+abstract class FavoriteStates{}
 
 class InitialProduct extends ProductCartState{}
 class LoadingProduct extends ProductCartState{}
@@ -36,3 +37,11 @@ class CartLoadedCount extends CartState{
 }
 
 // class DeleteCart extends CartState{}
+
+
+//////////Favorite  lLogics
+
+class InitialFavorite extends FavoriteStates{}
+class LoadingFavorite extends FavoriteStates{}
+class LoadedFavorite extends FavoriteStates{}
+

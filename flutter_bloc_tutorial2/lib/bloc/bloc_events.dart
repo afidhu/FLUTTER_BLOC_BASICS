@@ -1,6 +1,9 @@
 
 abstract class ProductsCartEvents{}
 abstract class CartEvents{}
+abstract class FavoriteEvents{}
+
+
 
 
 class  ProductFetch extends ProductsCartEvents{}
@@ -20,3 +23,11 @@ class CartDataCountEvent extends CartEvents{}
 //  final int id;
 //  DeleteCart(this.id,);
 // }
+
+
+class IsFavorite extends FavoriteEvents{
+ final bool is_favorite;
+ IsFavorite(this.is_favorite,);
+
+
+}

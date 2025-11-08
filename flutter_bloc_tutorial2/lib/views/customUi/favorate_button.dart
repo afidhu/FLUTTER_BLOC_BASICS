@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../bloc/bloc_logics.dart';
+import '../../bloc/bloc_states.dart';
 
 
 class FavorateButton extends StatefulWidget {
@@ -11,8 +15,22 @@ class FavorateButton extends StatefulWidget {
 class _FavorateButtonState extends State<FavorateButton> {
   @override
   Widget build(BuildContext context) {
-    return  IconButton(onPressed: (){},
-        icon: Icon(Icons.favorite)
+    return  BlocSelector<CubitFavorite,bool,bool>(
+      selector: (state) => state,
+        builder: (context,state) => state ?
+        IconButton(
+          onPressed: () {
+            context.read<CubitFavorite>().clickFavorite();
+          },
+          icon: Icon(Icons.favorite, color: Colors.pinkAccent,),
+        )
+            : IconButton(
+          onPressed: () {
+            context.read<CubitFavorite>().clickFavorite();
+          },
+          icon: Icon(Icons.favorite_border, color: Colors.black,),
+        )
     );
   }
 }
+// LoadingFavorite

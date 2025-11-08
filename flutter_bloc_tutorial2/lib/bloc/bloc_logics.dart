@@ -76,3 +76,28 @@ class CartBloc extends Bloc<CartEvents, CartState> {
 
 
 }
+
+/////////////FAVORITE BLOC
+
+class FavoriteBloc extends Bloc<FavoriteEvents, FavoriteStates> {
+  FavoriteBloc():super(InitialFavorite()){
+    on<IsFavorite>(isFavoriteFun);
+  }
+
+  Future<void> isFavoriteFun(event, emit) async {
+    emit(LoadingFavorite());
+    Future.delayed(Duration(seconds: 2));
+    emit(LoadedFavorite());
+  }
+}
+
+
+//////////CUBIT
+
+class CubitFavorite extends Cubit<bool>{
+  CubitFavorite():super(true);
+
+  void  clickFavorite(){
+    emit(!state);
+  }
+}

@@ -20,6 +20,8 @@ void main() {
         providers: [
           BlocProvider(create: (_) => ProductCartBloc()),
           BlocProvider(create: (_) => CartBloc()),
+          BlocProvider(create: (_) => FavoriteBloc()),
+          BlocProvider(create: (_) => CubitFavorite()),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
