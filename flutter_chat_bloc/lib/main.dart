@@ -7,54 +7,65 @@ import 'package:flutter_chat_bloc/features/domain/repositories/auth_repository_i
 import 'package:flutter_chat_bloc/features/domain/usecases/login_usecase.dart';
 import 'package:flutter_chat_bloc/features/domain/usecases/register_usecase.dart';
 import 'package:flutter_chat_bloc/features/presentation/bloc/auth_blocs/auth_bloc.dart';
+import 'package:flutter_chat_bloc/features/services/app_services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // import 'package:flutter_chat_bloc/presentation/messages/message_page.dart';
 // import 'package:flutter_chat_bloc/views/auth/register.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get_storage/get_storage.dart';
 
+import 'features/domain/repositories/message_repository.dart';
+import 'features/presentation/bloc/message_bloc/messages_blocs.dart';
 import 'features/presentation/views/auth/register.dart';
 
-void main() {
-  final auReposity = AuthRepositoryImpl(AuthRemoteDataSource());
-  runApp( MyApp(authRepository: auReposity,));
+void main() async {
+  await GetStorage.init();
+AppService();
+  final authRepository = AuthRepositoryImpl(AuthRemoteDataSource());
+  final messageRepository = MessageRepository(AuthRemoteDataSource());
+
+  runApp(
+    MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthRepositoryImpl>(
+          create: (_) => authRepository,
+        ),
+        RepositoryProvider<MessageRepository>(
+          create: (_) => messageRepository,
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  
-  final AuthRepositoryImpl authRepository;
-  const MyApp({super.key, required this.authRepository});
+  const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers:[
-          BlocProvider(create: (_)=>AuthBloc(
-              LoginUseCase(authRepository),
-              RegisterUseCase(authRepository)))
-        ],
-        child:GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.dark(brightness: Brightness.light)
+      providers: [
+        BlocProvider(
+          create: (_) => MessagesBloc(
+            context.read<MessageRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (_) => AuthBloc(
+            LoginUseCase(context.read<AuthRepositoryImpl>()),
+            RegisterUseCase(context.read<AuthRepositoryImpl>()),
+          ),
+        ),
+      ],
+      child: GetMaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.dark(brightness: Brightness.light),
+        ),
+        home: RegisterScreen(),
       ),
-      // home: MessagePage()
-      // home: ChatPage(),
-      home: RegisterScreen(),
-    ));
+    );
   }
 }
+

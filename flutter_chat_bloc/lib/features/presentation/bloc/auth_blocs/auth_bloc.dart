@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_chat_bloc/features/services/app_services.dart';
 
 import '../../../domain/usecases/login_usecase.dart';
 import '../../../domain/usecases/register_usecase.dart';
@@ -6,9 +7,9 @@ import 'auth_events.dart';
 import 'auth_states.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+// final storage = FlutterSecureStorage();
 class AuthBloc extends Bloc<AuthEvents,AuthState>{
 
-  final _storage = FlutterSecureStorage();
 
 
 
@@ -36,8 +37,9 @@ class AuthBloc extends Bloc<AuthEvents,AuthState>{
     emit(LoadingAuth());
     try{
     final user = await loginUseCase(event.email, event.password);
-    await _storage.write(key: 'token', value: user.token);
-    print(user.token);
+    // await AppService().storage.write(key: 'userId', value: user.id.toString());
+    await AppService().getXStorage.write('userId', user.id.toString());
+    print(user);
     emit(SuccessLogin('Success Create account :${user.name}'));
     } catch(e){
       emit(LoginError(e.toString()));

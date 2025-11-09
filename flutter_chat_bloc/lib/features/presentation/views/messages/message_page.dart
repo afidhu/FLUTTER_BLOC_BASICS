@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_bloc/core/theme_colors.dart';
+import 'package:flutter_chat_bloc/features/services/app_services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -44,16 +45,21 @@ class _MessagePageState extends State<MessagePage> {
               itemBuilder: (context, index) {
                 return Padding(
                   padding:  EdgeInsets.symmetric(horizontal: Get.width * 0.01),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const [
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.blueAccent,
-                      ),
-                      SizedBox(height: 6),
-                      Text("User", style: TextStyle(fontSize: 12)),
-                    ],
+                  child: InkWell(
+                    onTap: (){
+                      print('object');
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.blueAccent,
+                        ),
+                        SizedBox(height: 6),
+                        Text("User", style: TextStyle(fontSize: 12)),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -83,11 +89,17 @@ class _MessagePageState extends State<MessagePage> {
         child: ListView.builder(
           itemCount: 15,
           itemBuilder: (context, index) {
-            return  ListTile(
-                leading: CircleAvatar(),
-                title: Text("User Name"),
-                subtitle: Text("Last message..."),
-                trailing: Text(dateNow.toString().substring(11, 16))
+            return  InkWell(
+              onTap: (){
+
+                print('${AppService().getXStorage.read('userId')}');
+              },
+              child: ListTile(
+                  leading: CircleAvatar(),
+                  title: Text("User Name"),
+                  subtitle: Text("Last message..."),
+                  trailing: Text(dateNow.toString().substring(11, 16))
+              ),
             );
           },
         ),

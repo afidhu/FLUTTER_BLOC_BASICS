@@ -11,6 +11,7 @@ import 'package:get/get_core/src/get_main.dart';
 import '../../bloc/auth_blocs/auth_bloc.dart';
 import '../../bloc/auth_blocs/auth_states.dart';
 import '../messages/chat_page.dart';
+import '../messages/message_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       listener: (context, state) {
                         if (state is SuccessLogin) {
-                          Get.to(ChatPage());
+                          Get.to(MessagePage());
                         } else if (state is LoginError) {
                           Get.snackbar(
                             "Error",
