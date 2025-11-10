@@ -612,8 +612,9 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const MessagesScalarFieldEnum = {
   message_id: 'message_id',
-  userId: 'userId',
   content: 'content',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

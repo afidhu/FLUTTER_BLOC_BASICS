@@ -74,13 +74,6 @@ export const verifyUser = async (req: Request, resp: Response) => {
              id:true,
             email:true,
             name:true,
-            messages:{
-                select:{
-                    message_id:true,
-                    content:true,
-                    createdAt:true
-                }
-            }
         
         },
     
@@ -96,3 +89,18 @@ export const verifyUser = async (req: Request, resp: Response) => {
 }
 
 
+
+
+
+
+export const getAllUsers = async (req: Request, resp: Response) => {
+
+    try {
+        const users = await prisma.user.findMany()
+
+        return resp.status(200).json(users);
+
+    } catch (error:any) {
+        return resp.status(500).json({ message: "internal eroro", error: error.message });
+    }
+}

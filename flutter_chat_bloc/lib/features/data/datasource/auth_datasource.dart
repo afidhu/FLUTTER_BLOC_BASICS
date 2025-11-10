@@ -20,6 +20,8 @@ class AuthRemoteDataSource{
         await AppService().getXStorage.write('token',response.data['token']);
         dio.options.headers['Authorization'] = 'Bearer ${response.data['token']}';
         final varifiedUser = await dio.get('/auth/verify');
+        await AppService().getXStorage.write('UserId',varifiedUser.data['id']);
+        await AppService().getXStorage.write('userName',varifiedUser.data['name']);
         print('varifiedUser: ${varifiedUser.data}');
         return UserModel.fromJson(varifiedUser.data);
       }else{
@@ -56,6 +58,16 @@ class AuthRemoteDataSource{
       //
       // print( 'response:  ${response.data}');
     return await dio.get('/message/$id');
+
+    }
+    catch(e){
+      throw Exception(e);
+    }
+  }
+
+  Future<Response> allUsers() async{
+    try {
+    return await dio.get('/auth/users');
 
     }
     catch(e){

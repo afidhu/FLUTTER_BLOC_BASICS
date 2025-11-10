@@ -37,9 +37,6 @@ class AuthBloc extends Bloc<AuthEvents,AuthState>{
     emit(LoadingAuth());
     try{
     final user = await loginUseCase(event.email, event.password);
-    // await AppService().storage.write(key: 'userId', value: user.id.toString());
-    await AppService().getXStorage.write('userId', user.id.toString());
-    print(user);
     emit(SuccessLogin('Success Create account :${user.name}'));
     } catch(e){
       emit(LoginError(e.toString()));

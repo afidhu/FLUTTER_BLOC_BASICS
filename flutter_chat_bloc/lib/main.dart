@@ -15,7 +15,10 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'features/domain/repositories/message_repository.dart';
+import 'features/domain/repositories/users_repository.dart';
+import 'features/presentation/bloc/cubit_users/cubit_users.dart';
 import 'features/presentation/bloc/message_bloc/messages_blocs.dart';
+import 'features/presentation/bloc/socketIo_chat/chat_cubit.dart';
 import 'features/presentation/views/auth/register.dart';
 
 void main() async {
@@ -27,6 +30,7 @@ AppService();
   runApp(
     MultiRepositoryProvider(
       providers: [
+        RepositoryProvider(create: (_)=>UsersRepository(AuthRemoteDataSource())),
         RepositoryProvider<AuthRepositoryImpl>(
           create: (_) => authRepository,
         ),
@@ -46,6 +50,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (_)=>ChatCubit()),
+        BlocProvider(
+          create: (_) => UserCubit(),
+        ),
         BlocProvider(
           create: (_) => MessagesBloc(
             context.read<MessageRepository>(),

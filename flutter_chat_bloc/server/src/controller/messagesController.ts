@@ -8,7 +8,7 @@ export const getMessages = async (req: Request, resp: Response) => {
     try {
         const message = await prisma.messages.findMany({
             where:{
-                userId:Number(req.params.id)
+                senderId:Number(req.params.id)
             }
         })
 
@@ -16,5 +16,27 @@ export const getMessages = async (req: Request, resp: Response) => {
 
     } catch (error) {
         return resp.status(500).json({ message: "internal eroro", error: error });
+    }
+}
+
+
+
+
+export const createMessages = async (datas:any) => {
+
+    try {
+        const message = await prisma.messages.create({
+            data:{
+                content:datas.content,
+                senderId:Number(datas.senderId),
+                receiverId:Number(datas.receiverId),
+            }
+        })
+
+        return [message]
+
+
+    } catch (error) {
+        console.log('error aer :', error)
     }
 }
