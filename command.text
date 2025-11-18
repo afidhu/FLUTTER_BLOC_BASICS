@@ -1,7 +1,7 @@
 echo "# FLUTTER_BLOC_BASICS" >> README.md
 git init
 git add .
-git commit -m " add Hive_flutter, Hive, CachedNetworkImage and   bloc add Hive logic, and in Model add it to Hive "
+git commit -m " add Dio error Handling"
 git branch -M main
 git remote add origin https://github.com/afidhu/FLUTTER_BLOC_BASICS.git
 git push -u origin main

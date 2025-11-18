@@ -69,13 +69,13 @@ class _ApiCallState extends State<ApiCall> {
         
 
       ) ,
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     context.read<ProductBloc>().add(LoadingProductData());
-      //   },
-      //   tooltip: 'Api',
-      //   child: const Icon(Icons.refresh),
-      // )
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          context.read<ProductBloc>().add(LoadingProductData());
+        },
+        tooltip: 'Api',
+        child: const Icon(Icons.refresh),
+      )
     );
   }
 }
