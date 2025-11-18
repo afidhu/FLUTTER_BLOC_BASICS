@@ -1,10 +1,20 @@
-class ProductModel {
+import 'package:hive/hive.dart';
+part 'product_model.g.dart';
+@HiveType(typeId: 0)
+class ProductModel extends HiveObject {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? title;
+  @HiveField(2)
   double? price;
+  @HiveField(3)
   String? description;
+  @HiveField(4)
   String? category;
+  @HiveField(5)
   String? image;
+
 
   ProductModel(
       {this.id,

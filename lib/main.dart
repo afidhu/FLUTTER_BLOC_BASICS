@@ -4,14 +4,21 @@ import 'package:flutter_bloc_basics/screens/home.dart';
 import 'package:flutter_bloc_basics/tutorials/counts.dart';
 import 'package:flutter_bloc_basics/tutorials/todo_app/blocTodo/todo_logic/todoLogics.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 
 import 'bloc_logic/api_product_logic.dart';
 import 'bloc_logic/count_bloc.dart';
 import 'bloc_logic/visibility_logic.dart';
 import 'cubit_tutorial/bloc/my_observer.dart';
 import 'cubit_tutorial/cubits/cubit_logic.dart';
+import 'data/model/product_model.dart';
 
-void main() {
+void main()  async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ProductModelAdapter());
+  await Hive.openBox<ProductModel>('productBox');
   runApp(
       MultiBlocProvider(
         providers: [

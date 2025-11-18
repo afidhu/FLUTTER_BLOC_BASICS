@@ -59,4 +59,5 @@ class MyObserver extends BlocObserver{
     print('Error ${error.toString()}');
 
   }
+
 }

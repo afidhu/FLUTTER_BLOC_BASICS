@@ -1,7 +1,13 @@
 echo "# FLUTTER_BLOC_BASICS" >> README.md
 git init
 git add .
-git commit -m " add functions of chats adn flutter UI chats"
+git commit -m " add Hive_flutter, Hive, CachedNetworkImage and   bloc add Hive logic, and in Model add it to Hive "
 git branch -M main
 git remote add origin https://github.com/afidhu/FLUTTER_BLOC_BASICS.git
 git push -u origin main
+
+
+////////////add Flutter Hive and  Hive the,CachedNetworkImage also add   build_runner: ^2.3.3 hive_generator: ^2.0.1 in    yaml///
+then
+=> flutter pub run build_runner build
+then configure  in main .dart file
