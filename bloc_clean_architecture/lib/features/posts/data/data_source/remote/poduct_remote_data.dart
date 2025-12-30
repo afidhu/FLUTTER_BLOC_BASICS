@@ -8,7 +8,7 @@ class ProductDataSource{
 // final dioClient =DioClient();
   Future<Response> getPosts() async{
     try{
-      return await DioClient().dio.get('/products');
+      return await DioClient().dio.get('/posts');
     } catch(e){
       rethrow;
     }
