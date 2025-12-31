@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../features/posts/presentation/screen/posts_screen.dart';
+import '../../features/products/presentation/screens/product_screen.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -30,11 +31,26 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             InkWell(
               // onTap: (){},
-              child: FloatingActionButton(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                    backgroundColor: WidgetStatePropertyAll(Colors.purple)
+                ),
                   onPressed:(){
                     Get.to(()=>PostsScreen());
                   },
                 child: Text('Posts'),
+              ),
+            ),
+            InkWell(
+              // onTap: (){},
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.orange)
+                ),
+                  onPressed:(){
+                    Get.to(()=>ProductScreen());
+                  },
+                child: Text('Products'),
               ),
             )
           ],

@@ -6,19 +6,34 @@ import 'package:bloc_clean_architecture/features/posts/domain/repository/post_re
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import 'features/posts/domain/usecases/get_post_usecase.dart';
 import 'features/posts/presentation/bloc/posts_bloc.dart';
+import 'features/products/data/product_repo_impl/local_product_repo_impl.dart';
+import 'features/products/data/product_repo_impl/products_repo_impl.dart';
+import 'features/products/data/product_source_data/remote/product_source.dart';
+import 'features/products/domain/repository/product_repository.dart';
+import 'features/products/domain/usecase/product_usecase.dart';
+import 'features/products/presentation/bloc/products_bloc.dart';
 
-void main() {
+Future<void> main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+ await Hive.initFlutter('productHive');
+ await Hive.openBox('productsBox');
+
   runApp(
     MultiRepositoryProvider(
       providers: [
         RepositoryProvider<PostRepository>(create: (_) => PostRepositoryImpl(ProductDataSource()),),
+        RepositoryProvider<ProductRepository>(create: (_) => ProductRepositoryImpl(ProductsRemoteSourceData()),),
+        RepositoryProvider<ProductRepository>(create: (_) => LocalProductsRepositoryImpl(Hive.box('productsBox')),),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<PostsBloc>(create: (context) =>PostsBloc(GetPostUseCase(context.read<PostRepository>())),),
+          BlocProvider<ProductsBloc>(create: (context) =>ProductsBloc(GetProductUseCase(context.read<ProductRepository>())),),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,
