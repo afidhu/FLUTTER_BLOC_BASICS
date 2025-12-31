@@ -9,6 +9,11 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'features/carts/data/cart_repo_impl/cart_repo_impl.dart';
+import 'features/carts/data/carts_data_sources/remote/cart_remote_datasource.dart';
+import 'features/carts/domain/repository/carts_repository.dart';
+import 'features/carts/domain/usecases/cart_usecase.dart';
+import 'features/carts/presentation/bloc/cart_bloc.dart';
 import 'features/posts/domain/usecases/get_post_usecase.dart';
 import 'features/posts/presentation/bloc/posts_bloc.dart';
 import 'features/products/data/product_repo_impl/local_product_repo_impl.dart';
@@ -29,11 +34,13 @@ Future<void> main() async{
         RepositoryProvider<PostRepository>(create: (_) => PostRepositoryImpl(ProductDataSource()),),
         RepositoryProvider<ProductRepository>(create: (_) => ProductRepositoryImpl(ProductsRemoteSourceData()),),
         RepositoryProvider<ProductRepository>(create: (_) => LocalProductsRepositoryImpl(Hive.box('productsBox')),),
+        RepositoryProvider<CartRepository>(create: (_) => CartRepositoryImpl(CartRemoteDataSource()),),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<PostsBloc>(create: (context) =>PostsBloc(GetPostUseCase(context.read<PostRepository>())),),
           BlocProvider<ProductsBloc>(create: (context) =>ProductsBloc(GetProductUseCase(context.read<ProductRepository>())),),
+          BlocProvider<CartBloc>(create: (context) =>CartBloc(GetCartUseCase(context.read<CartRepository>())),),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,

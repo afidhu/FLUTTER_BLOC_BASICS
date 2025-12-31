@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../../features/carts/presentation/screens/carts_screen.dart';
 import '../../features/posts/presentation/screen/posts_screen.dart';
 import '../../features/products/presentation/screens/product_screen.dart';
 
@@ -52,7 +53,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 child: Text('Products'),
               ),
-            )
+            ),
+
+            InkWell(
+              // onTap: (){},
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.indigoAccent)
+                ),
+                  onPressed:(){
+                    Get.to(()=>CartsScreen());
+                  },
+                child: Text('carts'),
+              ),
+            ),
+
+
           ],
         ),
       ),

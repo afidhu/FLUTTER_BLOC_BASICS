@@ -63,6 +63,7 @@ factory  ProductsModel.fromJson(dynamic json) {
   return ProductsModel(
     id: (json['id'] as num).toInt(),
     title: json['title'].toString(),
+    reviews:(json['reviews'] as List<dynamic>).map((e)=>ReviewsModel.fromJson(e)).toList(),
     description: json['description'].toString(),
     category: json['category'].toString(),
     price: (json['price'] as num).toDouble(),

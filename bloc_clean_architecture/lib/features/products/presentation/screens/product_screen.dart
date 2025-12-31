@@ -44,6 +44,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             ),
                             title: Text(data.title.toString()),
                             subtitle: Text(data.price.toString()),
+
                             trailing: Image.network(data.images![0].toString()),
                           ),
                         );

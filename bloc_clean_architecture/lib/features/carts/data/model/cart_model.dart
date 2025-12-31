@@ -1,4 +1,6 @@
 
+import '../../domain/entities/cart_entity.dart';
+import 'cart_product_model.dart';
 /// id : 1
 /// products : [{"id":168,"title":"Charger SXT RWD","price":32999.99,"quantity":3,"total":98999.97,"discountPercentage":13.39,"discountedTotal":85743.87,"thumbnail":"https://cdn.dummyjson.com/products/images/vehicle/Charger%20SXT%20RWD/thumbnail.png"},{"id":78,"title":"Apple MacBook Pro 14 Inch Space Grey","price":1999.99,"quantity":2,"total":3999.98,"discountPercentage":18.52,"discountedTotal":3259.18,"thumbnail":"https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/thumbnail.png"},{"id":183,"title":"Green Oval Earring","price":24.99,"quantity":5,"total":124.95,"discountPercentage":6.28,"discountedTotal":117.1,"thumbnail":"https://cdn.dummyjson.com/products/images/womens-jewellery/Green%20Oval%20Earring/thumbnail.png"},{"id":100,"title":"Apple Airpods","price":129.99,"quantity":5,"total":649.95,"discountPercentage":12.84,"discountedTotal":566.5,"thumbnail":"https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"}]
 /// total : 103774.85
@@ -7,31 +9,33 @@
 /// totalProducts : 4
 /// totalQuantity : 15
 
-class CartModel {
-  CartModel({
-      this.id, 
-      this.products, 
-      this.total, 
-      this.discountedTotal, 
-      this.userId, 
-      this.totalProducts, 
-      this.totalQuantity,});
+class CartModel extends CartEntity {
+  const CartModel({
+    super.id,
+    super.products,
+    super.total,
+    super.discountedTotal,
+    super.userId,
+    super.totalProducts,
+    super.totalQuantity,});
 
-  CartModel.fromJson(dynamic json) {
-    id = json['id'];
+  factory CartModel.fromJson(dynamic json) {
+    final products = [];
     if (json['products'] != null) {
-      products = [];
       json['products'].forEach((v) {
-        products?.add(Products.fromJson(v));
+        products.add(CartProductsModel.fromJson(v));
       });
     }
-    total = json['total'];
-    discountedTotal = json['discountedTotal'];
-    userId = json['userId'];
-    totalProducts = json['totalProducts'];
-    totalQuantity = json['totalQuantity'];
+    return CartModel(
+      id: json['id'],
+      products: (json['products'] as List<dynamic>).map((e)=>CartProductsModel.fromJson(e)).toList(),
+      total: (json['total'] as num).toDouble(),
+      discountedTotal: (json['discountedTotal'] as num).toDouble(),
+      userId: json['userId'],
+      totalProducts: json['totalProducts'],
+      totalQuantity: json['totalQuantity'],
+    );
   }
-
 }
 
 /// id : 168

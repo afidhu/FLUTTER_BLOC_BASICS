@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 
-class ProductEntity extends Equatable{
+class CartProductEntity extends Equatable{
 
 final int? id;
 final String? title;
@@ -13,7 +13,7 @@ final double? discountPercentage;
 final double? discountedTotal;
 final String? thumbnail;
 
- const ProductEntity(this.id, this.title, this.price, this.quantity, this.total, this.discountPercentage, this.discountedTotal, this.thumbnail);
+ const CartProductEntity({this.id, this.title, this.price, this.quantity, this.total, this.discountPercentage, this.discountedTotal, this.thumbnail});
 
   @override
   // TODO: implement props
