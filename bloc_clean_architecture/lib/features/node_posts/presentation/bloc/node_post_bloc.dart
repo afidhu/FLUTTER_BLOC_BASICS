@@ -40,13 +40,16 @@ try{
     authorId: event.userId,
     imageUrl: event.imagePath,
   );
-  print("title :${event.title.toString()}");
-  print("title :${event.content.toString()}");
-  print("title :${event.userId.toString()}");
-  print("image :${event.imagePath.toString()}");
   final success = await addPosts.call(nodePostEntity);
-  print("success: $success");
-  // print("title :${event..title.toString()}");
+  final nodePost = await getPosts.call();
+  if(success){
+    emit( NodePostLoaded(nodePost));
+    print("success: $success");
+  }
+  else{
+    emit(NodePostLoadingError());
+    print("success: $success");
+  }
 
 } catch(e){
   print(e);

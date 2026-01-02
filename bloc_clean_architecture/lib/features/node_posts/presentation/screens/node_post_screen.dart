@@ -187,6 +187,10 @@ class _NodePostScreenState extends State<NodePostScreen> {
               onPressed: (){
                 if(globalKey.currentState!.validate()){
                 context.read<NodePostBloc>().add(AddNodePostEvent(title: title.text, content: content.text, userId: 1, imagePath: imagePicked.value));
+                Get.back();
+                setState(() {
+
+                });
                 }
                 else{
                   print('all fields are required');

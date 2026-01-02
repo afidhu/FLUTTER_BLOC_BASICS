@@ -35,6 +35,7 @@ Future<void> main() async{
  await Hive.initFlutter('productHive');
  await Hive.openBox('productsBox');
  await Hive.openBox('cartsBox');
+ await Hive.openBox('nodePostBox');
 
   runApp(
     MultiRepositoryProvider(

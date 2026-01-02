@@ -21,7 +21,6 @@ class NodePostModel extends NodePostEntity {
     super.title,
     super.content,
     super.imageUrl,
-    super.imagePath,
     super.published,
     super.authorId,
   });
@@ -39,27 +38,41 @@ class NodePostModel extends NodePostEntity {
     );
   }
 
-  /// ✅ FOR IMAGE UPLOAD
+  //THIS IS NO FORM DATA JUST TEXT ONLY
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'title': title,
+  //     'content': content,
+  //     'imageUrl': imageUrl,
+  //     'authorId': authorId,
+  //
+  //   };
+  // }
+
   Future<FormData> toFormData() async {
-    return FormData.fromMap({
-      'title': title,
-      'content': content,
-      'authorId': authorId,
-      if (imagePath != null)
-        'file': await MultipartFile.fromFile(
-          imagePath!,
-          filename: imagePath!.split('/').last,
+    final formData = FormData();
+
+    // TEXT FIELDS
+    formData.fields.add(MapEntry('title', title ?? ''));
+    formData.fields.add(MapEntry('content', content ?? ''));
+    formData.fields.add(MapEntry('authorId', authorId.toString()));
+
+    // FILE FIELD
+    if (imageUrl != null && imageUrl!.isNotEmpty) {
+      formData.files.add(
+        MapEntry(
+          'file', // MUST match upload.single('file')
+          await MultipartFile.fromFile(
+            imageUrl!,
+            filename: imageUrl!.split('/').last,
+          ),
         ),
-    });
+      );
+    }
+
+    return formData; // ✅ RETURN SAME OBJECT
   }
 
-  /// ✅ FOR NORMAL JSON (NO FILE)
-  Map<String, dynamic> toJson() {
-    return {
-      'title': title,
-      'content': content,
-      'imageUrl': imageUrl,
-      'authorId': authorId,
-    };
-  }
+
+
 }

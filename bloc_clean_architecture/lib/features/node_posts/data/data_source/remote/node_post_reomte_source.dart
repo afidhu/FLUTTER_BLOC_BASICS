@@ -19,11 +19,14 @@ class NodePostRemoteDataSource{
   Future<Response> addNodePost( posts) async{
     try{
       final formData = await posts.toFormData();
+      // print(posts);
       return await NodeDioClient().dio.post('/post', data: formData,
           options: Options(
             contentType: 'multipart/form-data',
           )
       );
+      print(posts);
+      return await NodeDioClient().dio.post('/post', data:posts.toJson());
     } catch(e){
       print(e);
       rethrow;
