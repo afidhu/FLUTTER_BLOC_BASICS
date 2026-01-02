@@ -11,12 +11,17 @@ import '../model/cart_model.dart';
 class CartRepositoryImpl implements CartRepository{
   final CartRemoteDataSource cartRemoteDataSource;
 
-  CartRepositoryImpl(this.cartRemoteDataSource);
+  CartRepositoryImpl({required this.cartRemoteDataSource, required this.cartsBox});
 
+  final Box cartsBox;
   final cartBox =Hive.box('cartsBox');
   @override
   Future<List<CartEntity>> getCart() async{
     try{
+      if(cartBox.isNotEmpty){
+        final cartLocal = cartBox.values.toList();
+        return cartLocal.map((e)=>CartModel.fromJson(e)).toList();
+      }
       final response = await cartRemoteDataSource.getCartView();
       if(response.statusCode ==200 || response.statusCode ==201){
         List<dynamic> dataJson =   response.data['carts'];

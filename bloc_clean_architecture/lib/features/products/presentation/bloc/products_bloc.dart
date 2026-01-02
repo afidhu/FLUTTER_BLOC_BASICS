@@ -19,9 +19,11 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
 
 
   FutureOr<void> _getProduct(GetProductEvent event, Emitter<ProductsState> emit) async{
+    // print('object');
     emit(ProductsLoading());
     try{
       final products = await _getProductUseCase.call();
+      print(products);
       emit(ProductsLoaded(products));
     } catch(e){
       emit(ProductsLoadingError(e.toString()));

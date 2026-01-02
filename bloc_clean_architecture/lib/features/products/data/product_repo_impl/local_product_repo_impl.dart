@@ -19,10 +19,7 @@ class LocalProductsRepositoryImpl implements ProductRepository{
     final productList = localProducts.values.toList();
       return productList.map((e)=>ProductsModel.fromJson(e)).toList();
     }
-    else{
-      return [];
-    }
-    throw UnimplementedError();
+    return [];
   }
 
   @override

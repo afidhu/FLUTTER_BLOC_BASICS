@@ -42,8 +42,8 @@ Future<void> main() async{
         RepositoryProvider<PostRepository>(create: (_) => PostRepositoryImpl(ProductDataSource()),),
         RepositoryProvider<ProductRepository>(create: (_) => ProductRepositoryImpl(ProductsRemoteSourceData()),),
         RepositoryProvider<ProductRepository>(create: (_) => LocalProductsRepositoryImpl(Hive.box('productsBox')),),
-        RepositoryProvider<CartRepository>(create: (_) => CartRepositoryImpl(CartRemoteDataSource()),),
-        RepositoryProvider<CartRepository>(create: (_) => LocalCartRepositoryImpl(Hive.box('cartsBox')),),
+        RepositoryProvider<CartRepository>(create: (_) => CartRepositoryImpl(cartRemoteDataSource: CartRemoteDataSource(), cartsBox: Hive.box('cartsBox')),),
+        // RepositoryProvider<CartRepository>(create: (_) => LocalCartRepositoryImpl(Hive.box('cartsBox')),),
 
         RepositoryProvider<NodePostRepository>(create: (_) => NodePostRepositoryImpl(NodePostRemoteDataSource()),),
       ],

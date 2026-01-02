@@ -17,9 +17,8 @@ class LocalCartRepositoryImpl implements CartRepository{
       final cartLocal = cartBox.values.toList();
       return cartLocal.map((e)=>CartModel.fromJson(e)).toList();
     }
-    else{
-      return [];
-    }
+    return [];
+
   }
 
 }
