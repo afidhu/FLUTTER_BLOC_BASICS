@@ -1,3 +1,7 @@
+
+
+import '../../domain/entities/node_post_entity.dart';
+
 /// id : 6
 /// createdAt : "2025-11-12T13:00:32.635Z"
 /// updatedAt : "2025-11-12T13:00:32.635Z"
@@ -6,48 +10,56 @@
 /// imageUrl : "https://prisma-backend-docker-neon.onrender.com/uploads/1762952430794-img2.jpeg"
 /// published : false
 /// authorId : 1
+import 'dart:io';
+import 'package:dio/dio.dart';
 
-class NodePostModel {
-  NodePostModel({
-      this.id, 
-      this.createdAt, 
-      this.updatedAt, 
-      this.title, 
-      this.content, 
-      this.imageUrl, 
-      this.published, 
-      this.authorId,});
+class NodePostModel extends NodePostEntity {
+  const NodePostModel({
+    super.id,
+    super.createdAt,
+    super.updatedAt,
+    super.title,
+    super.content,
+    super.imageUrl,
+    super.imagePath,
+    super.published,
+    super.authorId,
+  });
 
-  NodePostModel.fromJson(dynamic json) {
-    id = json['id'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    title = json['title'];
-    content = json['content'];
-    imageUrl = json['imageUrl'];
-    published = json['published'];
-    authorId = json['authorId'];
+  factory NodePostModel.fromJson(dynamic json) {
+    return NodePostModel(
+      id: json['id'],
+      createdAt: json['createdAt'],
+      updatedAt: json['updatedAt'],
+      title: json['title'],
+      content: json['content'],
+      imageUrl: json['imageUrl'],
+      published: json['published'],
+      authorId: json['authorId'],
+    );
   }
-  int? id;
-  String? createdAt;
-  String? updatedAt;
-  String? title;
-  String? content;
-  String? imageUrl;
-  bool? published;
-  int? authorId;
 
+  /// ✅ FOR IMAGE UPLOAD
+  Future<FormData> toFormData() async {
+    return FormData.fromMap({
+      'title': title,
+      'content': content,
+      'authorId': authorId,
+      if (imagePath != null)
+        'file': await MultipartFile.fromFile(
+          imagePath!,
+          filename: imagePath!.split('/').last,
+        ),
+    });
+  }
+
+  /// ✅ FOR NORMAL JSON (NO FILE)
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['createdAt'] = createdAt;
-    map['updatedAt'] = updatedAt;
-    map['title'] = title;
-    map['content'] = content;
-    map['imageUrl'] = imageUrl;
-    map['published'] = published;
-    map['authorId'] = authorId;
-    return map;
+    return {
+      'title': title,
+      'content': content,
+      'imageUrl': imageUrl,
+      'authorId': authorId,
+    };
   }
-
 }

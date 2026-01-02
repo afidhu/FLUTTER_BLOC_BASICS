@@ -14,3 +14,11 @@ class DioClient{
     receiveTimeout: Duration(seconds: 3),
   ) );
 }
+
+class NodeDioClient{
+  final dio = Dio(BaseOptions(
+    baseUrl:ApiConstant.baseUrl2,
+    connectTimeout: Duration(seconds: 5),
+    receiveTimeout: Duration(seconds: 3),
+  ) );
+}

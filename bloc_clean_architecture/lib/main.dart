@@ -9,11 +9,18 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'features/carts/data/cart_repo_impl/cart_local_repo_impl.dart';
 import 'features/carts/data/cart_repo_impl/cart_repo_impl.dart';
 import 'features/carts/data/carts_data_sources/remote/cart_remote_datasource.dart';
 import 'features/carts/domain/repository/carts_repository.dart';
 import 'features/carts/domain/usecases/cart_usecase.dart';
 import 'features/carts/presentation/bloc/cart_bloc.dart';
+import 'features/node_posts/data/data_source/remote/node_post_reomte_source.dart';
+import 'features/node_posts/data/repository_impl/node_post_rep_impl.dart';
+import 'features/node_posts/domain/repository/node_post_repository.dart';
+import 'features/node_posts/domain/usecases/node_add_post_usecase.dart';
+import 'features/node_posts/domain/usecases/node_get_post_usecase.dart';
+import 'features/node_posts/presentation/bloc/node_post_bloc.dart';
 import 'features/posts/domain/usecases/get_post_usecase.dart';
 import 'features/posts/presentation/bloc/posts_bloc.dart';
 import 'features/products/data/product_repo_impl/local_product_repo_impl.dart';
@@ -27,6 +34,7 @@ Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
  await Hive.initFlutter('productHive');
  await Hive.openBox('productsBox');
+ await Hive.openBox('cartsBox');
 
   runApp(
     MultiRepositoryProvider(
@@ -35,12 +43,19 @@ Future<void> main() async{
         RepositoryProvider<ProductRepository>(create: (_) => ProductRepositoryImpl(ProductsRemoteSourceData()),),
         RepositoryProvider<ProductRepository>(create: (_) => LocalProductsRepositoryImpl(Hive.box('productsBox')),),
         RepositoryProvider<CartRepository>(create: (_) => CartRepositoryImpl(CartRemoteDataSource()),),
+        RepositoryProvider<CartRepository>(create: (_) => LocalCartRepositoryImpl(Hive.box('cartsBox')),),
+
+        RepositoryProvider<NodePostRepository>(create: (_) => NodePostRepositoryImpl(NodePostRemoteDataSource()),),
       ],
       child: MultiBlocProvider(
         providers: [
           BlocProvider<PostsBloc>(create: (context) =>PostsBloc(GetPostUseCase(context.read<PostRepository>())),),
           BlocProvider<ProductsBloc>(create: (context) =>ProductsBloc(GetProductUseCase(context.read<ProductRepository>())),),
           BlocProvider<CartBloc>(create: (context) =>CartBloc(GetCartUseCase(context.read<CartRepository>())),),
+
+          BlocProvider<NodePostBloc>(
+            create: (context) => NodePostBloc(getPosts: NodeGetPostUseCase(context.read<NodePostRepository>()), addPosts: NodeAddPostUseCase(context.read<NodePostRepository>())),),
+          // BlocProvider<NodePostBloc>(create: (context) =>NodePostBloc(NodeGetPostUseCase(context.read<NodePostRepository>())),),
         ],
         child: GetMaterialApp(
           debugShowCheckedModeBanner: false,

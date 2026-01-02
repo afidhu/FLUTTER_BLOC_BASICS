@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../features/carts/presentation/screens/carts_screen.dart';
+import '../../features/node_posts/presentation/screens/node_post_screen.dart';
 import '../../features/posts/presentation/screen/posts_screen.dart';
 import '../../features/products/presentation/screens/product_screen.dart';
 
@@ -65,6 +66,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     Get.to(()=>CartsScreen());
                   },
                 child: Text('carts'),
+              ),
+            ),
+
+            InkWell(
+              // onTap: (){},
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Colors.brown)
+                ),
+                  onPressed:(){
+                    Get.to(()=>NodePostScreen());
+                  },
+                child: Text('Node Post'),
               ),
             ),
 

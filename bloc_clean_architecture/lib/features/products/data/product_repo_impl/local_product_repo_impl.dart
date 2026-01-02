@@ -17,7 +17,7 @@ class LocalProductsRepositoryImpl implements ProductRepository{
     // print(localProducts.values.toList());
     if(localProducts.isNotEmpty){
     final productList = localProducts.values.toList();
-      return productList.map((e)=>ProductsModel.fromJson(e)).toList();;
+      return productList.map((e)=>ProductsModel.fromJson(e)).toList();
     }
     else{
       return [];

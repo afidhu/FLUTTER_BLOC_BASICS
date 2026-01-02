@@ -38,6 +38,7 @@ class _CartsScreenState extends State<CartsScreen> {
               }
               if(state is CartLoaded){
                 return ListView.builder(
+                  itemCount: state.cart.length,
                     itemBuilder: (context,index){
                       var data =state.cart[index];
                       return ListTile(

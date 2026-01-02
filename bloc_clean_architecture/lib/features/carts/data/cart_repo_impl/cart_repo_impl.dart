@@ -2,6 +2,7 @@
 
 
 import 'package:bloc_clean_architecture/features/carts/domain/entities/cart_entity.dart';
+import 'package:hive/hive.dart';
 
 import '../../domain/repository/carts_repository.dart';
 import '../carts_data_sources/remote/cart_remote_datasource.dart';
@@ -12,12 +13,14 @@ class CartRepositoryImpl implements CartRepository{
 
   CartRepositoryImpl(this.cartRemoteDataSource);
 
+  final cartBox =Hive.box('cartsBox');
   @override
   Future<List<CartEntity>> getCart() async{
     try{
       final response = await cartRemoteDataSource.getCartView();
       if(response.statusCode ==200 || response.statusCode ==201){
         List<dynamic> dataJson =   response.data['carts'];
+        cartBox.addAll(dataJson);
         return dataJson.map((e)=>CartModel.fromJson(e)).toList();
       }
       else{
